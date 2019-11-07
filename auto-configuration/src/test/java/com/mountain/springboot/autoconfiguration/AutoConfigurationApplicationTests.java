@@ -1,21 +1,23 @@
 package com.mountain.springboot.autoconfiguration;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class AutoConfigurationApplicationTests {
-	@Autowired
-	private PersonInfo personInfo;
+public abstract class AutoConfigurationApplicationTests {
 
-	@Test
-	void contextLoads() {
-		Assert.assertEquals("error.", "mountain", personInfo.getName());
+	@Before
+	public void start() {
+		System.out.println("Start test.");
+	}
+
+	@After
+	public void end() {
+		System.out.println("End test.");
 	}
 
 }
