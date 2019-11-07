@@ -4,13 +4,13 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class SingleConfigurationTest extends AutoConfigurationApplicationTests{
+public class SingleConfigurationTest extends AutoConfigurationApplicationTests{
   @Autowired
   private SingleConfiguration singleConfiguration;
 
   @Test
   void testSingleConfiguration() {
-    Assert.assertEquals("Failed to test SingleConfiguration.", "mountain", singleConfiguration.getName());
+    Assert.assertNotEquals("Failed to test SingleConfiguration.", "mountain", singleConfiguration.getPath());
     Assert.assertEquals("Failed to test SingleConfiguration.", 18, singleConfiguration.getAge());
   }
 }

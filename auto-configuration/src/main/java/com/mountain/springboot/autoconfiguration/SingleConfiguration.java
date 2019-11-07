@@ -9,6 +9,8 @@ public class SingleConfiguration {
   private String name;
   @Value("${person.age}")
   private int age;
+  @Value("${Path}") // 从环境变量中获取信息。
+  private String path;
 
   public String getName() {
     return name;
@@ -16,5 +18,9 @@ public class SingleConfiguration {
 
   public int getAge() {
     return age;
+  }
+
+  public String getPath() {
+    return path;
   }
 }

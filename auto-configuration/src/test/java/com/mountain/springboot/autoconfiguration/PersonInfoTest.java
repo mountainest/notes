@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class PersonInfoTest extends AutoConfigurationApplicationTests{
+public class PersonInfoTest extends AutoConfigurationApplicationTests{
   @Autowired
   private PersonInfo personInfo;
 
