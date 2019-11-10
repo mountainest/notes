@@ -8,16 +8,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public abstract class AutoConfigurationApplicationTests {
+public  class AutoConfigurationApplicationTests {
 
 	@Before
-	public void start() {
-		System.out.println("Start test.");
+	public void start( ) {
+		System.out.println("Start test " + this.getClass() + ".");
 	}
 
 	@After
 	public void end() {
-		System.out.println("End test.");
+		System.out.println("End test " + this.getClass() + ".");
 	}
 
 }
