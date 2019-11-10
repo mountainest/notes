@@ -1,0 +1,4 @@
+1、由于每个测试类都要加@RunWith(SpringRunner.class)和@SpringBootTest注解，提取一个父类AutoConfigurationApplicationTests，其他的测试类继承该类。
+2、如果只有一个测试类，完全可以干掉AutoConfigurationApplicationTests父类，只有@Test注解。
+3、考虑到有很多个测试类，如果逐个运行会很麻烦，于是封装一个TestSuites类。
+4、点击测试类或者测试方法左边的绿色按钮即可运行。
