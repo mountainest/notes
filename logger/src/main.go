@@ -1,13 +1,14 @@
 package main
 
-import "fmt"
-import "github.com/sirupsen/logrus"
+import (
+	"fmt"
+	"logger/src/logger"
 
-func InitLog() {
-	logrus.SetFormatter(&logrus.TextFormatter{})
-}
+	"github.com/sirupsen/logrus"
+)
 
 func main() {
-	InitLog()
+	logger.InitLogger()
+	logrus.Error("test")
 	fmt.Println("hello world!")
 }
