@@ -1,10 +1,10 @@
 package main
 
 import "fmt"
-import log "github.com/sirupsen/logrus"
+import "github.com/sirupsen/logrus"
 
 func InitLog() {
-	log.SetFormatter(&log.TextFormatter{})
+	logrus.SetFormatter(&logrus.TextFormatter{})
 }
 
 func main() {
