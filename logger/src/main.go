@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	logger.InitLogger()
+	logger.InitLogger("./../.log/", "logger", "debug")
 	logger.TestFunc()
 	fmt.Println("hello world!")
 }

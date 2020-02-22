@@ -34,15 +34,19 @@ func (f *customFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	}
 	str += " " + logLevel
 	// 文件名、包名、函数名、行号
-	str += " " + entry.Caller.File + ":" + strconv.Itoa(entry.Caller.Line) + "(" + entry.Caller.Function + ")\n"
+	hasCaller := entry.HasCaller()
+	if hasCaller {
+		str += " " + entry.Caller.File + ":" + strconv.Itoa(entry.Caller.Line) + "(" + entry.Caller.Function + ")\n"
+	}
 	// 日志信息
 	str += "-" + entry.Message + "\n"
 	// 调用栈
-	if entry.HasCaller() {
-		str += getCallerStackInfo()
+	if hasCaller {
+		str += getCallerStackInfo(entry.Caller.Function)
 	}
 
 	buffer := getOutAddr(entry.Buffer)
+	fmt.Print(f.isColored())
 	if !f.isColored() {
 		buffer.WriteString(str)
 	} else {
@@ -52,20 +56,29 @@ func (f *customFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
-func getCallerStackInfo() string {
+func getCallerStackInfo(entryPackageFunc string) string {
 	pc := make([]uintptr, 10)
-	num := runtime.Callers(10, pc)
+	num := runtime.Callers(9, pc)
 	frames := runtime.CallersFrames(pc[:num])
 
 	var str string
 	var frame runtime.Frame
 	isExisting := num > 0
+	// 剔除入口函数
+	for isExisting {
+		frame, isExisting = frames.Next()
+
+		if frame.Function == entryPackageFunc {
+			break
+		}
+	}
+
 	for isExisting {
 		frame, isExisting = frames.Next()
 
 		packageFunc := frame.Function
 		if packageFunc == "runtime.main" || packageFunc == "runtime.goexit" {
-			continue
+			return str
 		}
 
 		str += "    " + frame.File + ":" + strconv.Itoa(frame.Line) + "(" + frame.Function + ")\n"
