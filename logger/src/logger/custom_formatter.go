@@ -46,7 +46,6 @@ func (f *customFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	}
 
 	buffer := getOutAddr(entry.Buffer)
-	fmt.Print(f.isColored())
 	if !f.isColored() {
 		buffer.WriteString(str)
 	} else {
