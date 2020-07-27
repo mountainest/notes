@@ -1,8 +1,9 @@
 {
-    "go.autocompleteUnimportedPackages": true,
-    "go.docsTool": "gogetdoc",
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    "go.useLanguageServer": true,
-    "go.gotoSymbol.includeImports": true,
-    "go.gotoSymbol.includeGoroot": true
+    /* 切换环境类型快捷键：Ctrl+Alt+E (Cmd + option + E) */
+    "rest-client.environmentVariables": {
+        "$shared": {},
+        "local":{
+            "host":"http://localhost:9000/rest/"
+        }
+    }
 }
