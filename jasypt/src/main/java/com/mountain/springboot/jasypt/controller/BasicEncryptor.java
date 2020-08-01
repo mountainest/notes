@@ -12,7 +12,7 @@ public class BasicEncryptor {
 
   BasicEncryptor() {
     encryptor = new BasicTextEncryptor();
-    //encryptor.setPassword("mountain"); // 加盐
+    encryptor.setPassword("mountain"); // 加盐
   }
 
   @GetMapping("/basic/{clear-text}")
