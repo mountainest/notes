@@ -1,2 +1,10 @@
 
 POST {{host}}/send/email
+Content-Type: application/json
+
+{
+    "tos":"pfanr@163.com",
+    "ccs":"pfanr@163.com",
+    "subject":"test",
+    "text":"text"
+}
