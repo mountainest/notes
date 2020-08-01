@@ -1,4 +1,4 @@
-package com.mountainest.smtp;
+package com.mountain.smtp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

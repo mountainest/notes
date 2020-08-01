@@ -1,4 +1,4 @@
-package com.mountainest.smtp.controller;
+package com.mountain.smtp.controller;
 
 public class Result {
     private int status = 0;

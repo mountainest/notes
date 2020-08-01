@@ -1,4 +1,4 @@
-package com.mountainest.smtp.controller;
+package com.mountain.smtp.controller;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

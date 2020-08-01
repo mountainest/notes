@@ -1,4 +1,4 @@
-package com.mountainest.smtp.controller;
+package com.mountain.smtp.controller;
 
 public class MailInfo {
     private String tos;
