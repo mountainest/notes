@@ -24,11 +24,7 @@ public class Email {
     private JavaMailSender mailSender;
 
     @PostMapping(value = "/send/email")
-    public boolean SendEmail(@RequestBody MailInfo mailInfo) {
-        return send(mailInfo);
-    }
-
-    private boolean send(MailInfo mailInfo) {
+    private Result send(@RequestBody MailInfo mailInfo) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
@@ -36,7 +32,7 @@ public class Email {
         String text = mailInfo.getText();
         if (StringUtils.isEmpty(tos)
             || StringUtils.isEmpty(text)) {
-            return false;
+            return new Result("收件人和正文不可缺省。");
         }
 
         try {
@@ -57,9 +53,9 @@ public class Email {
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             logger.error(e.toString());
-            return false;
+            return new Result(e.toString());
         }
 
-        return true;
+        return new Result();
     }
 }
