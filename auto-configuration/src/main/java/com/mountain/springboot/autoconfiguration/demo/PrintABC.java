@@ -24,6 +24,7 @@ public class PrintABC {
             System.out.println("");
           }
 //          this.cnt.compareAndSet(cnt, cnt + 1);
+          // 如果不通过volatile禁止重排序，cnt的写可能会往前重排，导致其他线程先打印。
           this.cnt = cnt+1;
         }
       } while (this.cnt < 1000);
