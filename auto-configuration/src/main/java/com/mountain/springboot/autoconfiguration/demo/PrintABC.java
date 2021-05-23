@@ -2,6 +2,7 @@ package com.mountain.springboot.autoconfiguration.demo;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrintABC {
@@ -29,10 +30,62 @@ public class PrintABC {
     }
   }
 
-  public static void print() {
+  private static void CASprint() {
     ExecutorService pool = Executors.newFixedThreadPool(3);
     pool.execute(new CAS("A"));
     pool.execute(new CAS("B"));
     pool.execute(new CAS("C"));
+  }
+
+  private static class SemaphoreCase {
+    private int cnt = 0;
+    private Semaphore sa = new Semaphore(1);
+    private Semaphore sb = new Semaphore(0);
+    private Semaphore sc = new Semaphore(0);
+
+    public void print() {
+      ExecutorService pool = Executors.newFixedThreadPool(3);
+      pool.execute(()->{
+        while (cnt < 9000 ) {
+          try {
+            sa.acquire(1);
+          } catch (InterruptedException e) {
+            return;
+          }
+          System.out.print("A");
+          cnt++;
+          sb.release();
+        }
+      });
+      pool.execute(()->{
+        while (cnt < 9000 ) {
+          try {
+            sb.acquire(1);
+          } catch (InterruptedException e) {
+            return;
+          }
+          System.out.print("B");
+          cnt++;
+          sc.release();
+        }
+      });
+      pool.execute(()->{
+        while (cnt < 9000 ) {
+          try {
+            sc.acquire(1);
+          } catch (InterruptedException e) {
+            return;
+          }
+          System.out.println("C");
+          cnt++;
+          sa.release();
+        }
+      });
+    }
+  }
+
+  public static void print() {
+//    CASprint();
+    new SemaphoreCase().print();
   }
 }
