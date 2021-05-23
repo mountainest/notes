@@ -6,6 +6,37 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrintABC {
+  private static class NoLock implements Runnable {
+    private static volatile int cnt = 0;
+    private static String[] threads = {"A", "B", "C"};
+    private String threadName;
+
+    public NoLock(String threadName) {
+      this.threadName = threadName;
+    }
+
+    public void run() {
+      do {
+        int cnt = this.cnt;
+        if (threads[cnt % 3].equals(this.threadName)) {
+          System.out.print(this.threadName);
+          if ("C".equals(this.threadName)) {
+            System.out.println("");
+          }
+//          this.cnt.compareAndSet(cnt, cnt + 1);
+          this.cnt = cnt+1;
+        }
+      } while (this.cnt < 1000);
+    }
+  }
+
+  private static void NoLockPrint() {
+    ExecutorService pool = Executors.newFixedThreadPool(3);
+    pool.execute(new NoLock("A"));
+    pool.execute(new NoLock("B"));
+    pool.execute(new NoLock("C"));
+  }
+
   private static class CAS implements Runnable {
     private static AtomicInteger cnt = new AtomicInteger();
     private static String[] threads = {"A", "B", "C"};
