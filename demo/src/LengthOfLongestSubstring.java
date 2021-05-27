@@ -1,7 +1,7 @@
 import java.util.HashSet;
 // 3、无重复字符的最长子串
 
-public class Solution {
+public class LengthOfLongestSubstring {
     public static int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) {
             return 0;
