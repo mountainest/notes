@@ -5,9 +5,29 @@ public class Solution {
     public void print() {
         System.out.println("测试");
     }
+    public boolean solution(int[] A, int[] B) {
+        // write your code in Java SE 8
+        if (A == null || B == null) {
+            return false;
+        }
+
+        int len = A.length;
+        for (int i = 0; i < len; i++) {
+            int j = i < len - 1 ? i + 1 : 0;
+            if (A[i] != B[j]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public int solution(int[] A) {
         // write your code in Java SE 8
+        if (A == null) {
+            throw new NullPointerException("A = null.");
+        }
+
         final int MAX_RESULT = 1000000000;
         int result = 0;
         int arr[] = new int[A.length];
@@ -41,17 +61,15 @@ public class Solution {
 
     private CalcInfo move(int[] arr, int curr, int remainNum) {
         int moveNum = 0;
-        if (remainNum > 0) {
-            for (int i = curr - 1; i >= 0; i--) {
-                if (arr[i] == 0) {
-                    arr[curr]--;
-                    arr[i] = 1;
-                    moveNum += (curr - i);
-                    remainNum--;
+        for (int i = curr - 1; i >= 0 && remainNum > 0; i--) {
+            if (arr[i] == 0) {
+                arr[curr]--;
+                arr[i] = 1;
+                moveNum += (curr - i);
+                remainNum--;
 
-                    if (arr[curr] == 1) {
-                        return new CalcInfo(moveNum, remainNum);
-                    }
+                if (arr[curr] == 1) {
+                    return new CalcInfo(moveNum, remainNum);
                 }
             }
         }
@@ -69,7 +87,7 @@ public class Solution {
         }
 
         // 异常
-        throw new RuntimeException("data error");
+        throw new RuntimeException("data error.");
     }
 
     private static class CalcInfo {
@@ -83,20 +101,23 @@ public class Solution {
 
     // https://leetcode.cn/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode-solution/
     public int solve(int[] A, int S){
-        int[] arr = new int[A.length];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = A[i] - S;
+        if (A == null) {
+            return 0;
         }
 
+        final int MAX_RESULT = 1000000000;
         int num = 0;
         int sum = 0;
         Map<Integer, Integer> map = new HashMap<>();
         map.put(sum, 1);
 
-        for (int x : arr) {
-            sum += x;
+        for (int i = 0; i < A.length; i++) {
+            sum += A[i] - S;
             if (map.containsKey(sum)) {
                 num += map.get(sum);
+                if (num > MAX_RESULT) {
+                    return MAX_RESULT;
+                }
             }
             map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
