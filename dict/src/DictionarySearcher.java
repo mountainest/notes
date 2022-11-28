@@ -1,5 +1,3 @@
-package dict;
-
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
@@ -7,10 +5,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 public class DictionarySearcher {
-    private final static String PRE_PATH = "src\\dict";
+    private final static String PRE_PATH = "src";
     private final static Charset CHAR_SET = StandardCharsets.UTF_8;
     private final static int CHAR_LEN = 3;
 
@@ -291,7 +292,7 @@ public class DictionarySearcher {
             return;
         }
 
-        // 如果能走完初始化，expext一定不为null。
+        // 如果能走完初始化，expext一定不为null，只可能为空集合。
         Assertions.assertNotNull(expect);
 
         // 没有找到返回的是空集合，结果一定不为null。
