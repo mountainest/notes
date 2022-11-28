@@ -256,9 +256,12 @@ public class DictionarySearcher {
     }
 
     private static HashMap<String, ArrayList<Integer>> buildExpect(String[] keys, int[][] numArr) {
-        assert keys.length == numArr.length;
-
         HashMap<String, ArrayList<Integer>> expect = new HashMap<>();
+
+        if (keys.length != numArr.length) {
+            return expect;
+        }
+
         for (int i = 0; i < keys.length; i++) {
             int[] arr = numArr[i];
             ArrayList<Integer> list = new ArrayList<Integer>(){{
